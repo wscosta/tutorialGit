@@ -1,7 +1,6 @@
 # Carregar pacotes úteis
 library(readr)     
 library(tidyverse)
-library(plotly)
 
 
 # Definir o caminho do arquivo
@@ -28,8 +27,6 @@ dados_soybeans <- dados_faostat %>%
   filter(Item == "Soya beans") %>%
   mutate(Item = "Soybeans") %>% 
   select(Crop = Item, Year, Value, Unit)
-
-
 
 # Criar pasta csv caso não exista
 if (!dir.exists("output/csv")) {
