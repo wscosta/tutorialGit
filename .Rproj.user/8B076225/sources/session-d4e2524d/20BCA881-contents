@@ -1,0 +1,43 @@
+# Carregar pacotes úteis
+library(readr)     
+library(tidyverse)
+library(plotly)
+
+
+# Definir o caminho do arquivo
+arquivo_csv <- "FAOSTAT_data_en_8-14-2025.csv"
+
+# Ler o arquivo CSV
+dados_faostat <- read_csv(arquivo_csv)
+
+# Transformar unidade e ajustar os valores
+dados_faostat <- dados_faostat %>%
+  mutate(
+    Unit = ifelse(Unit == "tonnes", "Mt", Unit),
+    Value = ifelse(Unit == "Mt", Value / 1000000, Value)
+  )
+
+# Subconjunto para "Maize (corn)" → "Corn"
+dados_corn <- dados_faostat %>%
+  filter(Item == "Maize (corn)") %>%
+  mutate(Item = "Corn") %>% 
+  select(Crop = Item, Year, Value, Unit)
+
+# Subconjunto para "Soya beans" → "Soybeans"
+dados_soybeans <- dados_faostat %>%
+  filter(Item == "Soya beans") %>%
+  mutate(Item = "Soybeans") %>% 
+  select(Crop = Item, Year, Value, Unit)
+
+
+# Salvar dados de Corn
+write_csv(dados_corn, "csvs/dados_corn.csv")
+
+# Salvar dados de Soybeans
+write_csv(dados_soybeans, "csvs/dados_soybeans.csv")
+
+
+
+
+
+
