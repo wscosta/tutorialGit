@@ -31,15 +31,15 @@ dados_soybeans <- dados_faostat %>%
 
 
 
-# Criar pasta charts caso não exista
+# Criar pasta csv caso não exista
 if (!dir.exists("output/csv")) {
   dir.create("output/csv")
 }
 
-# Salvar dados de Corn
+# Salvar dados de milho
 write_csv(dados_corn, "output/csv/dados_corn.csv")
 
-# Salvar dados de Soybeans
+# Salvar dados de soja
 write_csv(dados_soybeans, "output/csv/dados_soybeans.csv")
 
 
